@@ -1,6 +1,12 @@
 package com.AndroidCourse;
 
+import com.AndroidCourse.Utils.Net.HttpRequest;
+
 import org.junit.Test;
+
+import java.net.HttpURLConnection;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -11,7 +17,11 @@ import static org.junit.Assert.*;
  */
 public class ExampleUnitTest {
     @Test
-    public void addition_isCorrect() {
-        assertEquals(4, 2 + 2);
+    public void HTTPtest() {
+        Map<String,String> m = new HashMap<>();
+        m.put("UID","0000");
+        m.put("pwd","1234");
+        String ans = HttpRequest.request(m,HttpRequest.USER_PWD.getURL(),HttpRequest.USER_PWD.LOGIN);
+        System.out.println(ans);
     }
 }

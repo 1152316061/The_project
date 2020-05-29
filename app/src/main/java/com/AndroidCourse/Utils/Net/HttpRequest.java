@@ -3,6 +3,7 @@ package com.AndroidCourse.Utils.Net;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
 
@@ -16,15 +17,14 @@ import okhttp3.Response;
 
 public class HttpRequest {
 
-    public static String request(Map<String, String> param, URL url) {
+    public static String request(Map<String, String> param, URL url, String AIM) {
         OkHttpClient client = new OkHttpClient();
-
         FormBody.Builder builder = new FormBody.Builder();
 
         for (Map.Entry<String,String> entry:param.entrySet()){
             builder.add(entry.getKey(),entry.getValue());
         }
-
+        builder.add("AIM",AIM);
         RequestBody requestBody=builder.build();
         Request req = new Request.Builder().url(url).post(requestBody).build();
 
@@ -32,14 +32,31 @@ public class HttpRequest {
         client.newCall(req).enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-
+                System.out.println("fail");
+                back[0] = "FAIL";
             }
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                System.out.println("success");
                 back[0] = response.body().string();
             }
         });
+        while (back[0]==null){}
         return back[0];
+    }
+
+    public static final class USER_PWD{
+        public static final String LOGIN = "1";
+        public static final String CHANGE_PWD = "2";
+        public static URL getURL(){
+            URL url = null;
+            try {
+                url = new URL("http://10.0.2.2:8080/Test_war_exploded/UserPwd");
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+            return url;
+        }
     }
 }
