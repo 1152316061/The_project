@@ -23,7 +23,14 @@
         </activity>
         <activity android:name=".Activitys.MainMenu.MainMenuActivity">
             <intent-filter>
-                <action android:name="MainMenu"/>
+                <action android:name="MainMenu" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Activitys.HealthInformationActivity">
+            <intent-filter>
+                <action android:name="HIA"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>

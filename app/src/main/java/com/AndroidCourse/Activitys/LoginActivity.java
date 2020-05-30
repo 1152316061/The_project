@@ -36,7 +36,8 @@ public class LoginActivity extends AppCompatActivity {
         Button button = findViewById(R.id.button);
         button.setOnClickListener((v)->{
 
-            this.login("0000","1234");
+            Intent intent = new Intent("HIA");
+            startActivity(intent);
 
         });
     }

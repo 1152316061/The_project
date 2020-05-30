@@ -25,7 +25,8 @@ public class HttpRequest {
         for (Map.Entry<String,String> entry:param.entrySet()){
             builder.add(entry.getKey(),entry.getValue());
         }
-        builder.add("AIM",AIM);
+        if(!AIM.isEmpty())
+            builder.add("AIM",AIM);
         RequestBody requestBody=builder.build();
         Request req = new Request.Builder().url(url).post(requestBody).build();
 
@@ -55,6 +56,18 @@ public class HttpRequest {
             URL url = null;
             try {
                 url = new URL("http://10.0.2.2:8080/Test_war_exploded/UserPwd");
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+            return url;
+        }
+    }
+
+    public static final class HI{
+        public static URL getURL(){
+            URL url = null;
+            try {
+                url=new URL("http://10.0.2.2:8080/Test_war_exploded/HI");
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
