@@ -1,5 +1,7 @@
 package com.AndroidCourse.Utils.Net;
 
+import android.provider.ContactsContract;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -16,8 +18,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class HttpRequest {
-
-    public static String request(Map<String, String> param, URL url, String AIM) {
+    public String request(Map<String, String> param, URL url, String AIM) {
         OkHttpClient client = new OkHttpClient();
         FormBody.Builder builder = new FormBody.Builder();
 
@@ -45,6 +46,7 @@ public class HttpRequest {
         while (back[0]==null){}
         return back[0];
     }
+
 
     public static final class USER_PWD{
         public static final String LOGIN = "1";

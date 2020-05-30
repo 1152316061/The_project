@@ -21,7 +21,8 @@ public class ExampleUnitTest {
         Map<String,String> m = new HashMap<>();
         m.put("UID","0000");
         m.put("pwd","1234");
-        String ans = HttpRequest.request(m,HttpRequest.USER_PWD.getURL(),HttpRequest.USER_PWD.LOGIN);
+        HttpRequest request = new HttpRequest();
+        String ans = request.request(m,HttpRequest.USER_PWD.getURL(),HttpRequest.USER_PWD.LOGIN);
         System.out.println(ans);
     }
 }
