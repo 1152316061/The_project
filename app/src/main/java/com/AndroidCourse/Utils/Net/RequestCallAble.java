@@ -12,7 +12,7 @@ public class RequestCallAble implements Callable {
     private Map<String, String> param;
     private URL url;
     private String AIM;
-    private static ExecutorService executor = Executors.newFixedThreadPool(2);
+    private static ExecutorService executor = Executors.newFixedThreadPool(10);
 
 
     public RequestCallAble(Map<String, String> param, URL url, String AIM) {

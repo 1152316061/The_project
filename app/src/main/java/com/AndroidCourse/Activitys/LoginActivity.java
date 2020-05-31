@@ -2,15 +2,21 @@ package com.AndroidCourse.Activitys;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 
+import android.Manifest;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -21,6 +27,7 @@ import com.AndroidCourse.Activitys.MainMenu.MainMenuActivity;
 import com.AndroidCourse.POJO.Medicine;
 import com.AndroidCourse.POJO.User;
 import com.AndroidCourse.R;
+import com.AndroidCourse.Services.LocationService;
 import com.AndroidCourse.Services.RemindService;
 import com.AndroidCourse.Utils.DB.MedicineDBA;
 import com.AndroidCourse.Utils.Net.HttpRequest;
@@ -44,20 +51,12 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Medicine m = new Medicine("阿司匹林","1","10:00:00");
-        MedicineDBA.addMedicine(m,this);
-        Intent intent = new Intent(this, RemindService.class);
+//================================================================
+        Intent intent = new Intent(this, LocationService.class);
         startService(intent);
         Button button = findViewById(R.id.button);
-        button.setOnClickListener((v)->{
-            NotificationChannel channel = new NotificationChannel("static", "Primary Channel", NotificationManager.IMPORTANCE_HIGH);
-            NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-            manager.createNotificationChannel(channel);
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(this,"static")
-                    .setSmallIcon(R.mipmap.ic_launcher)
-                    .setContentTitle("标题")
-                    .setContentText("内容");
-            manager.notify(1,builder.build());
+        button.setOnClickListener((v) -> {
+            stopService(intent);
         });
     }
 

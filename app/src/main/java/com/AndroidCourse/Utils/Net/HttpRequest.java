@@ -1,6 +1,6 @@
 package com.AndroidCourse.Utils.Net;
 
-import android.provider.ContactsContract;
+
 
 import org.jetbrains.annotations.NotNull;
 
@@ -68,6 +68,18 @@ public class HttpRequest {
             URL url = null;
             try {
                 url=new URL("http://10.0.2.2:8080/Test_war_exploded/HI");
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+            return url;
+        }
+    }
+
+    public static final class Loc{
+        public static URL getURL(){
+            URL url = null;
+            try {
+                url=new URL("http://10.0.2.2:8080/Test_war_exploded/Loc");
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
