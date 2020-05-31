@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.AndroidCourse">
+
     <!-- permission -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -13,6 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <service
+            android:name=".Services.RemindService"
+            android:enabled="true"
+            android:exported="true"></service>
         <!-- activity -->
         <activity android:name=".Activitys.LoginActivity">
             <intent-filter>
@@ -30,8 +35,16 @@
         </activity>
         <activity android:name=".Activitys.HealthInformationActivity">
             <intent-filter>
-                <action android:name="HIA"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="HIA" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Activitys.AddMedicineActivity">
+            <intent-filter>
+                <action android:name="addMed" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
     </application>
