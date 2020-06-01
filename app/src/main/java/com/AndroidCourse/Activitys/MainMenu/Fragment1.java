@@ -1,5 +1,6 @@
 package com.AndroidCourse.Activitys.MainMenu;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -60,6 +61,12 @@ public class Fragment1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_1, container, false);
+        View root = inflater.inflate(R.layout.fragment_1, container, false);
+
+
+
+        return root;
     }
+
+
 }

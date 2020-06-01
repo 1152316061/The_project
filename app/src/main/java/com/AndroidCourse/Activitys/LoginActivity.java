@@ -17,13 +17,16 @@ import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
 import android.widget.Button;
+import android.widget.ImageView;
 
 
 import com.AndroidCourse.Activitys.MainMenu.MainMenuActivity;
+import com.AndroidCourse.POJO.Goods;
 import com.AndroidCourse.POJO.Medicine;
 import com.AndroidCourse.POJO.User;
 import com.AndroidCourse.R;
@@ -33,6 +36,7 @@ import com.AndroidCourse.Utils.DB.MedicineDBA;
 import com.AndroidCourse.Utils.Net.HttpRequest;
 import com.AndroidCourse.Utils.Net.RequestCallAble;
 import com.alibaba.fastjson.JSON;
+import com.squareup.picasso.Picasso;
 import com.xq.fasterdialog.dialog.LoadingDialog;
 import com.xq.fasterdialog.dialog.NormalDialog;
 
@@ -40,7 +44,9 @@ import com.xq.fasterdialog.dialog.NormalDialog;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -52,11 +58,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 //================================================================
-        Intent intent = new Intent(this, LocationService.class);
-        startService(intent);
+
         Button button = findViewById(R.id.button);
         button.setOnClickListener((v) -> {
-            stopService(intent);
+
         });
     }
 
@@ -88,5 +93,22 @@ public class LoginActivity extends AppCompatActivity {
             NormalDialog normalDialog = new NormalDialog(this);
             normalDialog.setTitle("登录失败").setContent("账号或密码错误").setNeutralText("确定").show();
         }
+    }
+
+
+
+    List<Goods> getAllGoods(){
+        List<Goods> list = null;
+        try {
+            String objs = new RequestCallAble(new HashMap<String, String>(),HttpRequest._Goods.getURL(),"").commit();
+            System.out.println("getDONE");
+            list = JSON.parseArray(objs,Goods.class);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("out");
+        return list;
     }
 }
