@@ -25,6 +25,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 
+import com.AndroidCourse.Activitys.MainMenu.HorRecyclerViewActivity;
 import com.AndroidCourse.Activitys.MainMenu.MainMenuActivity;
 import com.AndroidCourse.POJO.Goods;
 import com.AndroidCourse.POJO.Medicine;
@@ -61,7 +62,8 @@ public class LoginActivity extends AppCompatActivity {
 
         Button button = findViewById(R.id.button);
         button.setOnClickListener((v) -> {
-
+            Intent intent=new Intent(LoginActivity.this, HorRecyclerViewActivity.class);
+            startActivity(intent);
         });
     }
 
