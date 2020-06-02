@@ -16,13 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activitys.MainMenu.HorRecyclerViewActivity">
-            <intent-filter>
-                <action android:name="addMed" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".Activitys.SCActivity"></activity>
 
         <service
             android:name=".Services.RemindService"
@@ -63,7 +57,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

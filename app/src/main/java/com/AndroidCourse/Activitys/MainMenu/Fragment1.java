@@ -86,6 +86,8 @@ public class Fragment1 extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_1, container, false);
+
+
         mIv1 = view.findViewById(R.id.iv_1);
         mTv1 = view.findViewById(R.id.tv_1);
         mIv1 = view.findViewById(R.id.iv_2);

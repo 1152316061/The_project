@@ -36,7 +36,7 @@ public class MedicineDBA {
     public static List<Medicine> getMedicine(Context context){
         List<Medicine> list = new ArrayList<>();
         DBhelper dBhelper = new DBhelper(context,"Medicine",null,1);
-        SQLiteDatabase DB = dBhelper.getWritableDatabase();
+        SQLiteDatabase DB = dBhelper.getReadableDatabase();
 
         Cursor cursor = DB.query("Medicine", null, null, null, null, null, null);
         while (cursor.moveToNext()){
@@ -49,5 +49,11 @@ public class MedicineDBA {
         dBhelper.close();
 
         return list;
+    }
+
+    public static void delMedicine(Medicine m, Context context){
+        DBhelper dBhelper = new DBhelper(context,"Medicine",null,1);
+        SQLiteDatabase DB = dBhelper.getWritableDatabase();
+        DB.delete("Medicine","name = ? and time = ?",new String[]{m.getmName(),m.getTime()});
     }
 }

@@ -3,12 +3,25 @@ package com.AndroidCourse.Activitys.MainMenu;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.AndroidCourse.POJO.Goods;
 import com.AndroidCourse.R;
+import com.AndroidCourse.Utils.DB.OLDBA;
+import com.AndroidCourse.Utils.Net.HttpRequest;
+import com.AndroidCourse.Utils.Net.RequestCallAble;
+import com.alibaba.fastjson.JSON;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,11 +68,45 @@ public class Fragment2 extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
+    RecyclerView mRvHor;
+    List<Goods> list;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_2, container, false);
+        View root = inflater.inflate(R.layout.fragment_2, container, false);
+
+
+        list = getAllGoods();
+        mRvHor=root.findViewById(R.id.rv_hor);
+        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getActivity());
+        mRvHor.setLayoutManager(linearLayoutManager);
+        HorAdapter adapter= new HorAdapter(getActivity(), list);
+        adapter.setOnItemButtonClickListener(new HorAdapter.OnItemButtonClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                System.out.println(position+"$$$$$$$$$");
+                addToOL(list.get(position));
+            }
+        });
+        mRvHor.setAdapter(adapter);
+        return root;
+    }
+    private List<Goods> getAllGoods(){
+        List<Goods> list = null;
+        try {
+            String objs = new RequestCallAble(new HashMap<String, String>(), HttpRequest._Goods.getURL(),"").commit();
+            System.out.println("getDONE");
+            list = JSON.parseArray(objs,Goods.class);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("out");
+        return list;
+    }
+    private void addToOL(Goods g){
+        OLDBA.addToOL(g,getActivity());
     }
 }

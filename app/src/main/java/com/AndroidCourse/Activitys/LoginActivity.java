@@ -2,42 +2,24 @@ package com.AndroidCourse.Activitys;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.app.NotificationCompat;
 
-import android.Manifest;
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.graphics.BitmapFactory;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
 import android.widget.Button;
-import android.widget.ImageView;
 
 
-import com.AndroidCourse.Activitys.MainMenu.HorRecyclerViewActivity;
 import com.AndroidCourse.Activitys.MainMenu.MainMenuActivity;
 import com.AndroidCourse.POJO.Goods;
-import com.AndroidCourse.POJO.Medicine;
 import com.AndroidCourse.POJO.User;
 import com.AndroidCourse.R;
-import com.AndroidCourse.Services.LocationService;
-import com.AndroidCourse.Services.RemindService;
-import com.AndroidCourse.Utils.DB.MedicineDBA;
+import com.AndroidCourse.Utils.DB.OLDBA;
 import com.AndroidCourse.Utils.Net.HttpRequest;
 import com.AndroidCourse.Utils.Net.RequestCallAble;
 import com.alibaba.fastjson.JSON;
-import com.squareup.picasso.Picasso;
 import com.xq.fasterdialog.dialog.LoadingDialog;
 import com.xq.fasterdialog.dialog.NormalDialog;
 
@@ -47,6 +29,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 
@@ -62,8 +45,12 @@ public class LoginActivity extends AppCompatActivity {
 
         Button button = findViewById(R.id.button);
         button.setOnClickListener((v) -> {
-            Intent intent=new Intent(LoginActivity.this, HorRecyclerViewActivity.class);
+            OLDBA.addToOL(new Goods(UUID.randomUUID().toString().replaceAll("-",""),
+                    "goods1",122,"12"),this);
+            Intent intent=new Intent(LoginActivity.this, SCActivity.class);
             startActivity(intent);
+
+
         });
     }
 
@@ -97,20 +84,4 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-
-
-    List<Goods> getAllGoods(){
-        List<Goods> list = null;
-        try {
-            String objs = new RequestCallAble(new HashMap<String, String>(),HttpRequest._Goods.getURL(),"").commit();
-            System.out.println("getDONE");
-            list = JSON.parseArray(objs,Goods.class);
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        System.out.println("out");
-        return list;
-    }
 }
