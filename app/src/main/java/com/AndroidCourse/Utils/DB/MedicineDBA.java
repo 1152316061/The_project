@@ -56,4 +56,9 @@ public class MedicineDBA {
         SQLiteDatabase DB = dBhelper.getWritableDatabase();
         DB.delete("Medicine","name = ? and time = ?",new String[]{m.getmName(),m.getTime()});
     }
+    public static void delAllMedicine(Context context){
+        DBhelper dBhelper = new DBhelper(context,"Medicine",null,1);
+        SQLiteDatabase DB = dBhelper.getWritableDatabase();
+        DB.delete("Medicine",null,null);
+    }
 }

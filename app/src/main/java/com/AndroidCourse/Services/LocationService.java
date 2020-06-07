@@ -40,7 +40,7 @@ public class LocationService extends Service {
 
     @Override
     public void onCreate() {
-        System.out.println("inService###");
+        System.out.println("start>>>>>>>LocationService");
         super.onCreate();
         SharedPreferences sp = getSharedPreferences("Login",Context.MODE_PRIVATE);
         UID = sp.getString("UID","0000");
@@ -48,20 +48,19 @@ public class LocationService extends Service {
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-                System.out.println("LC###########");
-                System.out.println(location.getLatitude());
-                Myloc l = new Myloc(UID, new Timestamp(System.currentTimeMillis()), location.getLongitude(), location.getLatitude());
-                Map<String,String> m = new HashMap<>();
-                m.put("Myloc", JSON.toJSONString(l));
-                String result = null;
-                try {
-                    result = new RequestCallAble(m, HttpRequest.Loc.getURL(), "").commit();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                System.out.println(result);
+                    System.out.println("LC###########");
+                    System.out.println(location.getLatitude());
+                    Myloc l = new Myloc(UID, new Timestamp(System.currentTimeMillis()), location.getLongitude(), location.getLatitude());
+                    Map<String,String> m = new HashMap<>();
+                    m.put("Myloc", JSON.toJSONString(l));
+                    String result = null;
+                    try {
+                        result = new RequestCallAble(m, HttpRequest.Loc.getURL(), "").commit();
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println(result);
             }
 
             @Override

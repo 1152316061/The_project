@@ -21,7 +21,7 @@ import java.util.List;
 public class HorAdapter extends RecyclerView.Adapter<HorAdapter.LinearViewHolder> {
 
     private Context mContext;
-    private List<Goods> context;
+    public List<Goods> context;
     private int Tag = 0;
     private OnItemButtonClickListener onItemButtonClickListener;
 
@@ -59,6 +59,9 @@ public class HorAdapter extends RecyclerView.Adapter<HorAdapter.LinearViewHolder
     }
     public void remove(int pos){
         context.remove(pos);
+    }
+    public void refreshList(List<Goods> list){
+        this.context = list;
     }
 
     @Override

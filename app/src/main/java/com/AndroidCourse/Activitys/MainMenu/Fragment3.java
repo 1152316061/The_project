@@ -1,5 +1,7 @@
 package com.AndroidCourse.Activitys.MainMenu;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,8 +9,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.AndroidCourse.R;
+import com.AndroidCourse.Utils.DB.MedicineDBA;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,11 +60,35 @@ public class Fragment3 extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
+    private TextView tv1;
+    private TextView tv2;
+    private TextView tv3;
+    private Button button;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_3, container, false);
+        View root = inflater.inflate(R.layout.fragment_3, container, false);
+
+        SharedPreferences sp = getActivity().getSharedPreferences("Login", Context.MODE_PRIVATE);
+        String UID = sp.getString("UID","0000");
+        sp = getActivity().getSharedPreferences("phone", Context.MODE_PRIVATE);
+        String phone = sp.getString("phone","110");
+        tv1 = root.findViewById(R.id.textView8);
+        tv2 = root.findViewById(R.id.textView7);
+        tv3 = root.findViewById(R.id.textView6);
+        tv1.setText(UID);
+        tv2.setText("上海市黄浦区人民大道200号");
+        tv3.setText(phone);
+        button = root.findViewById(R.id.btout);
+        button.setOnClickListener(v->{
+            SharedPreferences sp2 = getActivity().getSharedPreferences("Login", Context.MODE_PRIVATE);
+            SharedPreferences.Editor edit = sp2.edit();
+            edit.clear();
+            edit.commit();
+            MedicineDBA.delAllMedicine(getActivity());
+            getActivity().finish();
+        });
+        return root;
     }
 }

@@ -34,20 +34,28 @@ public class SCActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_s_c);
 
-        list = getAllGoods();
+        list = OLDBA.getOL(this);
         mRvHor=findViewById(R.id.rv_hor);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
         mRvHor.setLayoutManager(linearLayoutManager);
         adapter = new HorAdapter(this, list,1);
-        adapter.setOnItemButtonClickListener(new HorAdapter.OnItemButtonClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                System.out.println(position+"$$$232323$$");
-                delOl(list.get(position),position);
+        adapter.setOnItemButtonClickListener((view, position) -> {
+            System.out.println(position+"$$$232323$$");
+            delOl(list.get(position),position);
 
-            }
         });
         mRvHor.setAdapter(adapter);
+
+        Button button = findViewById(R.id.jiesuan);
+
+        button.setOnClickListener(v->{
+            double sum = 0;
+            for (int i = 0;i<list.size();i++){
+                sum+=list.get(i).getPrice();
+            }
+            NormalDialog dialog = new NormalDialog(this);
+            dialog.setContent("总价: "+sum).setNeutralText("确定").show();
+        });
 
     }
     private List<Goods> getAllGoods(){
@@ -72,6 +80,7 @@ public class SCActivity extends AppCompatActivity {
                 System.out.println("in del");
                 OLDBA.delOL(g,SCActivity.this);
                 adapter.remove(position);
+                list=adapter.context;
                 adapter.notifyDataSetChanged();
             }
         }).show();

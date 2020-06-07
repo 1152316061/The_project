@@ -3,13 +3,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activitys.MainMenu.Fragment2">
+    tools:context=".Activitys.MainMenu.Fragment2"
+    android:background="@drawable/background">
 
     <!-- TODO: Update blank fragment layout -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_hor"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    android:id="@+id/sw"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="55555" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <Button
+            android:id="@+id/btsc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="购物车" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_hor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="55555" />
+    </LinearLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
 
 </FrameLayout>

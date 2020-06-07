@@ -1,16 +1,21 @@
 package com.AndroidCourse.Activitys.MainMenu;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
+import com.AndroidCourse.Activitys.SCActivity;
 import com.AndroidCourse.POJO.Goods;
 import com.AndroidCourse.R;
 import com.AndroidCourse.Utils.DB.OLDBA;
@@ -70,28 +75,52 @@ public class Fragment2 extends Fragment {
     }
     RecyclerView mRvHor;
     List<Goods> list;
+    SwipeRefreshLayout sw;
+    HorAdapter adapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_2, container, false);
-
-
-        list = getAllGoods();
+        sw = root.findViewById(R.id.sw);
+        list = new ArrayList<>();
         mRvHor=root.findViewById(R.id.rv_hor);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getActivity());
         mRvHor.setLayoutManager(linearLayoutManager);
-        HorAdapter adapter= new HorAdapter(getActivity(), list);
-        adapter.setOnItemButtonClickListener(new HorAdapter.OnItemButtonClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                System.out.println(position+"$$$$$$$$$");
-                addToOL(list.get(position));
-            }
+        adapter = new HorAdapter(getActivity(), list);
+        adapter.setOnItemButtonClickListener((view, position) -> {
+            System.out.println(position + "$$$$$$$$$");
+            addToOL(list.get(position));
         });
         mRvHor.setAdapter(adapter);
+        Button bt = root.findViewById(R.id.btsc);
+        bt.setOnClickListener(v->{
+            Intent intent = new Intent(getActivity(), SCActivity.class);
+            startActivity(intent);
+        });
+        sw.setOnRefreshListener(() -> {
+            list = getAllGoods();
+            adapter.refreshList(list);
+            adapter.notifyDataSetChanged();
+            sw.setRefreshing(false);
+        });
         return root;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("123", "onResume");
+        sw.post(() -> {
+            sw.setRefreshing(true);
+            list = getAllGoods();
+            adapter.refreshList(list);
+            adapter.notifyDataSetChanged();
+            sw.setRefreshing(false);
+        });
+
+    }
+
     private List<Goods> getAllGoods(){
         List<Goods> list = null;
         try {

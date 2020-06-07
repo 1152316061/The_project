@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
 
     <uses-feature android:name="android.hardware.location.gps" />
 
@@ -16,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activitys.SCActivity"></activity>
+        <activity android:name=".Activitys.HelloActivity"></activity>
 
         <service
             android:name=".Services.RemindService"
@@ -53,6 +54,20 @@
         <activity android:name=".Activitys.AddMedicineActivity">
             <intent-filter>
                 <action android:name="addMed" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Activitys.WebActivity">
+            <intent-filter>
+                <action android:name="web" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Activitys.SCActivity">
+            <intent-filter>
+                <action android:name="SC" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>

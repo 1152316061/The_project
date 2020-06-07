@@ -31,20 +31,12 @@ public class HttpRequest {
         Request req = new Request.Builder().url(url).post(requestBody).build();
 
         final String[] back = new String[1];
-        client.newCall(req).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                System.out.println("fail");
-                back[0] = "FAIL";
-            }
-
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                System.out.println("success");
-                back[0] = response.body().string();
-            }
-        });
-        while (back[0]==null){}
+        try {
+            Response response = client.newCall(req).execute();
+            back[0] = response.body().string();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return back[0];
     }
 

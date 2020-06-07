@@ -3,22 +3,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activitys.MainMenu.Fragment1">
+    tools:context=".Activitys.MainMenu.Fragment1"
+    android:background="@drawable/background">
 
     <!-- TODO: Update blank fragment layout -->
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:orientation="vertical"
-        android:padding="5dp">
+        android:padding="5dp"
+        android:gravity="center">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:orientation="horizontal"
-            android:paddingTop="100dp">
+            >
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -32,7 +34,7 @@
                     android:layout_height="40dp"
                     android:layout_gravity="center_horizontal"
                     android:padding="6dp"
-                    android:src="@android:color/background_dark" />
+                    android:src="@drawable/health" />
 
                 <TextView
                     android:id="@+id/tv_1"
@@ -40,7 +42,9 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:padding="10dp"
-                    android:text="健康管理" />
+                    android:text="健康管理"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -55,7 +59,7 @@
                     android:layout_height="40dp"
                     android:layout_gravity="center_horizontal"
                     android:padding="6dp"
-                    android:src="@android:color/background_dark" />
+                    android:src="@drawable/med" />
 
                 <TextView
                     android:id="@+id/tv_2"
@@ -63,7 +67,9 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:padding="10dp"
-                    android:text="用药设定" />
+                    android:text="用药设定"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -78,7 +84,7 @@
                     android:layout_height="40dp"
                     android:layout_gravity="center_horizontal"
                     android:padding="6dp"
-                    android:src="@android:color/background_dark" />
+                    android:src="@drawable/callhelp" />
 
                 <TextView
                     android:id="@+id/tv_3"
@@ -86,7 +92,9 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:padding="10dp"
-                    android:text="定时定位" />
+                    android:text="一键求助"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -101,7 +109,7 @@
                     android:layout_height="40dp"
                     android:layout_gravity="center_horizontal"
                     android:padding="6dp"
-                    android:src="@android:color/background_dark" />
+                    android:src="@drawable/fake" />
 
                 <TextView
                     android:id="@+id/tv_4"
@@ -109,7 +117,9 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:padding="10dp"
-                    android:text="一键求助" />
+                    android:text="实时辟谣"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -131,7 +141,7 @@
                     android:layout_height="100dp"
                     android:layout_gravity="center_horizontal"
                     android:padding="6dp"
-                    android:src="@android:color/background_dark" />
+                    android:src="@drawable/af" />
 
                 <TextView
                     android:id="@+id/tv_5"
@@ -139,7 +149,9 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:padding="6dp"
-                    android:text="定时定位" />
+                    android:text="抗疫指南"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -154,7 +166,7 @@
                     android:layout_height="100dp"
                     android:layout_gravity="center_horizontal"
                     android:padding="6dp"
-                    android:src="@android:color/background_dark" />
+                    android:src="@drawable/lf" />
 
                 <TextView
                     android:id="@+id/tv_6"
@@ -162,7 +174,9 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:padding="6dp"
-                    android:text="一键求助" />
+                    android:text="最新辟谣"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -184,7 +198,7 @@
                     android:layout_height="100dp"
                     android:layout_gravity="center_horizontal"
                     android:padding="6dp"
-                    android:src="@android:color/background_dark" />
+                    android:src="@drawable/du" />
 
                 <TextView
                     android:id="@+id/tv_7"
@@ -192,7 +206,9 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:padding="6dp"
-                    android:text="定时定位" />
+                    android:text="日常用品"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -207,7 +223,7 @@
                     android:layout_height="100dp"
                     android:layout_gravity="center_horizontal"
                     android:padding="6dp"
-                    android:src="@android:color/background_dark" />
+                    android:src="@drawable/tips" />
 
                 <TextView
                     android:id="@+id/tv_8"
@@ -215,7 +231,9 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:padding="6dp"
-                    android:text="一键求助" />
+                    android:text="生活小常识"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

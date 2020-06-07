@@ -33,10 +33,12 @@ public class RemindService extends Service {
     InnerReceiver receiver;
     List<Timer> timers;
     NotificationManager manager;
+    static int id = 0;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        System.out.println("start>>>>>>>RemindService");
         manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         System.out.println("Service in");
         timers = new ArrayList<>();
@@ -56,11 +58,14 @@ public class RemindService extends Service {
     }
 
     private void refreshList(){
-        stopAll();
-        list = MedicineDBA.getMedicine(this);
-        if(list.size()>0)
-            setTimer();
-        System.out.println(list.size());
+        new Thread(() -> {
+            stopAll();
+            list = MedicineDBA.getMedicine(RemindService.this);
+            if(list.size()>0)
+                setTimer();
+            System.out.println(list.size());
+        }).start();
+
 
     }
     private void setTimer(){
@@ -73,10 +78,10 @@ public class RemindService extends Service {
                 String[] t = m.getTime().split(":");
                 TimeZone.setDefault(TimeZone.getTimeZone("GMT+8"));
                 Calendar startDate = Calendar.getInstance();
-                    startDate.set(startDate.get(Calendar.YEAR), startDate.get(Calendar.MONTH), startDate.get(Calendar.DATE),
-                            Integer.parseInt(t[0]), Integer.parseInt(t[1]), Integer.parseInt(t[2]));
-//                startDate.set(startDate.get(Calendar.YEAR), startDate.get(Calendar.MONTH), startDate.get(Calendar.DATE),
-//                        startDate.get(Calendar.HOUR), startDate.get(Calendar.MINUTE)+1, startDate.get(Calendar.SECOND));
+//                    startDate.set(startDate.get(Calendar.YEAR), startDate.get(Calendar.MONTH), startDate.get(Calendar.DATE),
+//                            Integer.parseInt(t[0]), Integer.parseInt(t[1]), Integer.parseInt(t[2]));
+                startDate.set(startDate.get(Calendar.YEAR), startDate.get(Calendar.MONTH), startDate.get(Calendar.DATE),
+                        startDate.get(Calendar.HOUR), startDate.get(Calendar.MINUTE)+1, startDate.get(Calendar.SECOND));
                 System.out.println(startDate.getTime());
                 Timer timer = new Timer();
                 Task task = new Task(m);
@@ -97,7 +102,7 @@ public class RemindService extends Service {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            System.out.println("broadcast");
+            System.out.println("broadcast>>>>>>>done");
             refreshList();
         }
     }
@@ -116,7 +121,9 @@ public class RemindService extends Service {
                     .setSmallIcon(R.mipmap.ic_launcher)
                     .setContentTitle("用药时间")
                     .setContentText("药名: "+m0.getmName()+" 剂量:"+m0.getDosage());
-            manager.notify(1,builder.build());
+            manager.notify(id,builder.build());
+            id++;
+            id%=100;
         }
     }
 }

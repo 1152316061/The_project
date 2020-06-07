@@ -12,7 +12,7 @@ public class RequestCallAble implements Callable {
     private Map<String, String> param;
     private URL url;
     private String AIM;
-    private static ExecutorService executor = Executors.newFixedThreadPool(10);
+    private static ExecutorService executor = Executors.newCachedThreadPool();
 
 
     public RequestCallAble(Map<String, String> param, URL url, String AIM) {
@@ -29,6 +29,7 @@ public class RequestCallAble implements Callable {
     }
 
     public String commit() throws ExecutionException, InterruptedException {
+
         Future future = executor.submit(this);
         return (String) future.get();
     }

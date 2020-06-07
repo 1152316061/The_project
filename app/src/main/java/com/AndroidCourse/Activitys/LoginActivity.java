@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 
 import android.widget.Button;
+import android.widget.EditText;
 
 
 import com.AndroidCourse.Activitys.MainMenu.MainMenuActivity;
@@ -40,17 +41,28 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        Intent intent0 = new Intent(this,HelloActivity.class);
+        startActivity(intent0);
+
         setContentView(R.layout.activity_login);
-//================================================================
-
-        Button button = findViewById(R.id.button);
-        button.setOnClickListener((v) -> {
-            OLDBA.addToOL(new Goods(UUID.randomUUID().toString().replaceAll("-",""),
-                    "goods1",122,"12"),this);
-            Intent intent=new Intent(LoginActivity.this, SCActivity.class);
+        EditText UID;
+        EditText PWD;
+        Button LOG;
+        SharedPreferences sp = getSharedPreferences(spTag, Context.MODE_PRIVATE);
+        String t = sp.getString("UID","");
+        if(!t.isEmpty()){
+            Intent intent = new Intent("MainMenu");
             startActivity(intent);
+            finish();
+        }
+        UID = findViewById(R.id.UID);
+        PWD = findViewById(R.id.PWD);
 
-
+        LOG = findViewById(R.id.LOG);
+        LOG.setOnClickListener(v->{
+            login(UID.getText().toString().trim(),PWD.getText().toString().trim());
         });
     }
 
@@ -75,7 +87,7 @@ public class LoginActivity extends AppCompatActivity {
             editor.putString("UID",user.getUID());
             editor.putString("pwd",user.getPwd());
             editor.apply();
-            Intent intent = new Intent("MainMenu").putExtra("UID", user.getUID());
+            Intent intent = new Intent("MainMenu");
             startActivity(intent);
             finish();
         }else{
