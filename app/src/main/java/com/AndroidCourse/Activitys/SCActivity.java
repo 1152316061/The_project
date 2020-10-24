@@ -61,7 +61,7 @@ public class SCActivity extends AppCompatActivity {
     private List<Goods> getAllGoods(){
         List<Goods> list = null;
         try {
-            String objs = new RequestCallAble(new HashMap<String, String>(), HttpRequest._Goods.getURL(),"").commit();
+            String objs = new RequestCallAble(new HashMap<String, String>(), HttpRequest._Goods.getURL()).commit();
             System.out.println("getDONE");
             list = JSON.parseArray(objs,Goods.class);
         } catch (ExecutionException e) {

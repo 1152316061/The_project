@@ -72,8 +72,8 @@ public class LoginActivity extends AppCompatActivity {
         loadingDialog.setLoadingText("登陆中").setCancelable(true);
         loadingDialog.show();
         Map<String,String> m = new HashMap<>();
-        m.put("User", JSON.toJSONString(user));
-        RequestCallAble request = new RequestCallAble(m,HttpRequest.USER_PWD.getURL(),HttpRequest.USER_PWD.LOGIN);
+        m.put("user", JSON.toJSONString(user));
+        RequestCallAble request = new RequestCallAble(m,HttpRequest.Login.getURL());
         String ans = null;
         try {
             ans = request.commit();
@@ -81,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         loadingDialog.cancel();
-        if(ans.equals("SUCCESS")){
+        if(!ans.equals("null")){
             SharedPreferences sp = getSharedPreferences(spTag, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sp.edit();
             editor.putString("UID",user.getUID());

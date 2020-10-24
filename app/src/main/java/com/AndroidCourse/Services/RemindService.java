@@ -8,6 +8,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.IBinder;
 
@@ -18,22 +19,29 @@ import androidx.core.app.NotificationCompat;
 import com.AndroidCourse.POJO.Medicine;
 import com.AndroidCourse.R;
 import com.AndroidCourse.Utils.DB.MedicineDBA;
+import com.AndroidCourse.Utils.Net.HttpRequest;
+import com.AndroidCourse.Utils.Net.RequestCallAble;
+import com.alibaba.fastjson.JSON;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ExecutionException;
 
 public class RemindService extends Service {
-    List<Medicine> list;
-    InnerReceiver receiver;
-    List<Timer> timers;
-    NotificationManager manager;
-    static int id = 0;
+    private List<Medicine> list;
+    private InnerReceiver receiver;
+    private List<Timer> timers;
+    private NotificationManager manager;
+    private static int id = 0;
+    private Map param;
 
     @Override
     public void onCreate() {
@@ -42,9 +50,11 @@ public class RemindService extends Service {
         manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         System.out.println("Service in");
         timers = new ArrayList<>();
-        refreshList();
-
-
+        requestFromService();
+        list = new ArrayList<>();
+        SharedPreferences sp = sp = getSharedPreferences("Login", Context.MODE_PRIVATE);
+        param = new HashMap();
+        param.put("UID",sp.getString("UID",""));
         receiver = new InnerReceiver();
         IntentFilter filter = new IntentFilter();
         filter.addAction("updateMedList");
@@ -60,7 +70,7 @@ public class RemindService extends Service {
     private void refreshList(){
         new Thread(() -> {
             stopAll();
-            list = MedicineDBA.getMedicine(RemindService.this);
+            //list = MedicineDBA.getMedicine(RemindService.this);
             if(list.size()>0)
                 setTimer();
             System.out.println(list.size());
@@ -68,6 +78,46 @@ public class RemindService extends Service {
 
 
     }
+    private void requestFromService(){
+        new Thread(() -> {
+            while (true){
+                try {
+                    String response = new RequestCallAble(param, HttpRequest.GetMed.getURL()).commit();
+                    List<Medicine> listT = JSON.parseArray(response,Medicine.class);
+                    System.out.println("ListSize====>"+listT.size());
+                    synchronized (this.list){
+                        for(int i = 0;i<this.list.size();i++){
+                            if(listT.contains(this.list.get(i))){
+                                listT.remove(this.list.get(i));
+                            }else{
+                                MedicineDBA.delMedicine(this.list.get(i),this);
+                                this.list.remove(i);
+                            }
+                        }
+                        for(Medicine m : listT){
+                            this.list.add(m);
+                            MedicineDBA.addMedicine(m,this);
+                        }
+                    }
+                    if(listT.size()>0){
+                        refreshList();
+                    }
+                    Thread.sleep(60*10*1000);
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }).start();
+    }
+
+
+
+
+
+
     private void setTimer(){
         final long DAY = 24 * 60 * 60 * 1000;
         synchronized (list){
@@ -81,7 +131,7 @@ public class RemindService extends Service {
 //                    startDate.set(startDate.get(Calendar.YEAR), startDate.get(Calendar.MONTH), startDate.get(Calendar.DATE),
 //                            Integer.parseInt(t[0]), Integer.parseInt(t[1]), Integer.parseInt(t[2]));
                 startDate.set(startDate.get(Calendar.YEAR), startDate.get(Calendar.MONTH), startDate.get(Calendar.DATE),
-                        startDate.get(Calendar.HOUR), startDate.get(Calendar.MINUTE)+1, startDate.get(Calendar.SECOND));
+                        startDate.get(Calendar.HOUR), startDate.get(Calendar.MINUTE), startDate.get(Calendar.SECOND));
                 System.out.println(startDate.getTime());
                 Timer timer = new Timer();
                 Task task = new Task(m);

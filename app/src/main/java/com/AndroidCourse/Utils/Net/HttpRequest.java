@@ -18,15 +18,13 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class HttpRequest {
-    public String request(Map<String, String> param, URL url, String AIM) {
+    public String request(Map<String, String> param, URL url) {
         OkHttpClient client = new OkHttpClient();
         FormBody.Builder builder = new FormBody.Builder();
 
         for (Map.Entry<String,String> entry:param.entrySet()){
             builder.add(entry.getKey(),entry.getValue());
         }
-        if(!AIM.isEmpty())
-            builder.add("AIM",AIM);
         RequestBody requestBody=builder.build();
         Request req = new Request.Builder().url(url).post(requestBody).build();
 
@@ -41,13 +39,11 @@ public class HttpRequest {
     }
 
 
-    public static final class USER_PWD{
-        public static final String LOGIN = "1";
-        public static final String CHANGE_PWD = "2";
+    public static final class Login{
         public static URL getURL(){
             URL url = null;
             try {
-                url = new URL("http://10.0.2.2:8080/Test_war_exploded/UserPwd");
+                url = new URL("http://10.0.2.2:8080/login");
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
@@ -59,7 +55,7 @@ public class HttpRequest {
         public static URL getURL(){
             URL url = null;
             try {
-                url=new URL("http://10.0.2.2:8080/Test_war_exploded/HI");
+                url=new URL("http://10.0.2.2:8080/UploadHI");
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
@@ -71,7 +67,7 @@ public class HttpRequest {
         public static URL getURL(){
             URL url = null;
             try {
-                url=new URL("http://10.0.2.2:8080/Test_war_exploded/Loc");
+                url=new URL("http://10.0.2.2:8080/uploadLoc");
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
@@ -83,7 +79,18 @@ public class HttpRequest {
         public static URL getURL(){
             URL url = null;
             try {
-                url=new URL("http://10.0.2.2:8080/Test_war_exploded/Goods");
+                url=new URL("http://10.0.2.2:8080/getAllGoods");
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+            return url;
+        }
+    }
+    public static final class GetMed{
+        public static URL getURL(){
+            URL url = null;
+            try {
+                url = new URL("http://10.0.2.2:8080/getMed");
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }

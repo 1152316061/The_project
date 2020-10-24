@@ -55,7 +55,7 @@ public class LocationService extends Service {
                     m.put("Myloc", JSON.toJSONString(l));
                     String result = null;
                     try {
-                        result = new RequestCallAble(m, HttpRequest.Loc.getURL(), "").commit();
+                        result = new RequestCallAble(m, HttpRequest.Loc.getURL()).commit();
                     }
                     catch (Exception e) {
                         e.printStackTrace();

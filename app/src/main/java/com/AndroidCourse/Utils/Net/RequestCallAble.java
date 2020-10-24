@@ -11,20 +11,18 @@ import java.util.concurrent.Future;
 public class RequestCallAble implements Callable {
     private Map<String, String> param;
     private URL url;
-    private String AIM;
     private static ExecutorService executor = Executors.newCachedThreadPool();
 
 
-    public RequestCallAble(Map<String, String> param, URL url, String AIM) {
+    public RequestCallAble(Map<String, String> param, URL url) {
         this.param = param;
         this.url = url;
-        this.AIM = AIM;
     }
 
     @Override
     public String call() throws Exception {
         HttpRequest httpRequest = new HttpRequest();
-        String ans = httpRequest.request(param,url,AIM);
+        String ans = httpRequest.request(param,url);
         return ans;
     }
 

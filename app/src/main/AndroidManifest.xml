@@ -17,7 +17,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activitys.HelloActivity"></activity>
+        <activity android:name=".Activitys.ShowMedActivity.ShowMedActivity">
+            <intent-filter>
+                <action android:name="ShowMed"></action>
+                <category android:name="android.intent.category.DEFAULT"></category>
+            </intent-filter>
+        </activity>
+        <activity android:name=".Activitys.HelloActivity" />
 
         <service
             android:name=".Services.RemindService"

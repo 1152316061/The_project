@@ -59,8 +59,8 @@ public class HealthInformationActivity extends AppCompatActivity {
     }
     private void commitHI(HealthInformation HI){
         Map<String,String> m = new HashMap<String, String>();
-        m.put("HealthInformation", JSON.toJSONString(HI));
-        RequestCallAble request = new RequestCallAble(m, HttpRequest.HI.getURL(),"");
+        m.put("hi", JSON.toJSONString(HI));
+        RequestCallAble request = new RequestCallAble(m, HttpRequest.HI.getURL());
         try {
             String result = request.commit();
             System.out.println(result+"^^^^^^");

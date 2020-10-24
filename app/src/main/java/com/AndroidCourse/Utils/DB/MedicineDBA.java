@@ -26,8 +26,8 @@ public class MedicineDBA {
         try{
             DB.insert("Medicine",null,values);
         }catch (Exception e){
-            NormalDialog dialog = new NormalDialog(context);
-            dialog.setTitle("错误").setContent("添加失败,请勿重复添加").setNeutralText("确定").show();
+//            NormalDialog dialog = new NormalDialog(context);
+//            dialog.setTitle("错误").setContent("添加失败,请勿重复添加").setNeutralText("确定").show();
         }finally {
             DB.close();
             dBhelper.close();

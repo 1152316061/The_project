@@ -93,7 +93,8 @@ public class Fragment1 extends Fragment {
             startActivity(intent);
         });
         Iv2.setOnClickListener(v->{
-            Intent intent= new Intent("addMed");
+//            Intent intent= new Intent("addMed");
+            Intent intent= new Intent("ShowMed");
             startActivity(intent);
         });
         Iv3.setOnClickListener(v->{
