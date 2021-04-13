@@ -49,10 +49,11 @@ public class LocationService extends Service {
             @Override
             public void onLocationChanged(Location location) {
                     System.out.println("LC###########");
+                    System.out.println(UID);
                     System.out.println(location.getLatitude());
                     Myloc l = new Myloc(UID, new Timestamp(System.currentTimeMillis()), location.getLongitude(), location.getLatitude());
                     Map<String,String> m = new HashMap<>();
-                    m.put("Myloc", JSON.toJSONString(l));
+                    m.put("loc", JSON.toJSONString(l));
                     String result = null;
                     try {
                         result = new RequestCallAble(m, HttpRequest.Loc.getURL()).commit();

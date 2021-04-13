@@ -35,7 +35,16 @@ public class MedAdaptor extends RecyclerView.Adapter<MedAdaptor.MedViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull MedViewHolder holder, int position) {
         Medicine medicine = list.get(position);
-        holder.textView.setText(medicine.toString());
+        StringBuffer sb = new StringBuffer();
+        sb.append("药品名称：");
+        sb.append(medicine.getmName());
+        sb.append('\n');
+        sb.append("服药时间：");
+        sb.append(medicine.getTime());
+        sb.append('\n');
+        sb.append("服药剂量：");
+        sb.append(medicine.getDosage());
+        holder.textView.setText(sb.toString());
     }
 
     @Override

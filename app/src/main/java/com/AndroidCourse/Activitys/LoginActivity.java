@@ -82,10 +82,15 @@ public class LoginActivity extends AppCompatActivity {
         }
         loadingDialog.cancel();
         if(!ans.equals("null")){
+
+            user = JSON.parseObject(ans,User.class);
+            System.out.println("login>>result=======>"+user);
             SharedPreferences sp = getSharedPreferences(spTag, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sp.edit();
             editor.putString("UID",user.getUID());
             editor.putString("pwd",user.getPwd());
+            editor.putString("address",user.getAddress());
+            editor.putString("phone",user.getPhone());
             editor.apply();
             Intent intent = new Intent("MainMenu");
             startActivity(intent);

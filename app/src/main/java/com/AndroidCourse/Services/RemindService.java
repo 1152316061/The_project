@@ -102,7 +102,7 @@ public class RemindService extends Service {
                     if(listT.size()>0){
                         refreshList();
                     }
-                    Thread.sleep(60*10*1000);
+                    Thread.sleep(600000);
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 } catch (InterruptedException e) {

@@ -72,13 +72,13 @@ public class Fragment3 extends Fragment {
 
         SharedPreferences sp = getActivity().getSharedPreferences("Login", Context.MODE_PRIVATE);
         String UID = sp.getString("UID","0000");
-        sp = getActivity().getSharedPreferences("phone", Context.MODE_PRIVATE);
         String phone = sp.getString("phone","110");
+        String address = sp.getString("address","上海市黄浦区人民大道200号");
         tv1 = root.findViewById(R.id.textView8);
         tv2 = root.findViewById(R.id.textView7);
         tv3 = root.findViewById(R.id.textView6);
         tv1.setText(UID);
-        tv2.setText("上海市黄浦区人民大道200号");
+        tv2.setText(address);
         tv3.setText(phone);
         button = root.findViewById(R.id.btout);
         button.setOnClickListener(v->{
